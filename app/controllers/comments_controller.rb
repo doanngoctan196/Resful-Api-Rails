@@ -7,23 +7,9 @@ class CommentsController < ApplicationController
     COMMENT_PER_PAGE = 5
 
     def index
-        @page = params.fetch(:page,0).to_i
-        @comments = @post.comments.offset(@page * COMMENT_PER_PAGE).limit(COMMENT_PER_PAGE)
+        @comments = @post.comments.offset(pagination * COMMENT_PER_PAGE).limit(COMMENT_PER_PAGE)
         render json: @comments , status: 200
     end
-  
-    # def show
-    #   @comment.user = current_user
-    #   render json: @comment , status: 200
-    # end
-  
-    # def new
-    #   @comment = Comment.new(post_id: params[:post_id])
-    # end
-  
-    # def edit
-    #   @comment = Comment.find(params[:id])
-    # end
   
     def create
       @comment = @post.comments.create(comment_params)

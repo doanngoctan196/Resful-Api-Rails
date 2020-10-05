@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   end
   post 'authenticate', to: 'authentication#authenticate'
   get 'users/current',to: 'users#show'
+  get "search", to: "search#index"
 end

@@ -6,9 +6,8 @@ class UsersController < ApplicationController
 
     def index
         if !check_user_admin
-            @page = params.fetch(:page, 0).to_i
-            @users = User.offset(@page * USERS_PER_PAGE).limit(USERS_PER_PAGE)
-            render json: @users , status: :ok
+            @users = User.offset(pagination * USERS_PER_PAGE).limit(USERS_PER_PAGE)
+            render json: @users , status: :ok, except: [:password_digest]
         else
             render json:{
                 msg: "Not Authorized, User Must be an Admin"

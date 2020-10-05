@@ -11,5 +11,9 @@ class ApplicationController < ActionController::API
 
     def check_user_admin
       @current_user = AuthorizeApiRequest.call(request.headers).result unless @current_user.role == "admin"
-  end
+    end
+
+    def pagination
+      @page = params.fetch(:page,0).to_i
+    end
 end

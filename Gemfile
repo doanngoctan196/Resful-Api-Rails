@@ -15,6 +15,8 @@ gem 'puma', '~> 4.1'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 gem 'bcrypt', '~> 3.1.7'
 gem 'simple_command'
 gem 'jwt'

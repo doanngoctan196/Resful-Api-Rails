@@ -6,13 +6,12 @@ class PostsController < ApplicationController
     POST_PER_PAGE = 5
 
     def index
-        @page = params.fetch(:page,0).to_i
-        @posts = Post.offset(@page * POST_PER_PAGE).limit(POST_PER_PAGE)
-        render json: @posts, status: 200, include: :comments
+        @posts = Post.offset(pagination * POST_PER_PAGE).limit(POST_PER_PAGE)
+        render json: @posts, status: 200
     end
 
     def show
-        render json: @post , status: 200, include: :comments
+        render json: @post , status: 200
     end
 
     def create
