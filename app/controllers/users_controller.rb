@@ -2,9 +2,12 @@ class UsersController < ApplicationController
     before_action :authenticate_request,  only: [:index,:show, :update, :destroy]
     before_action :set_user, only: [:update,:destroy]
 
+    USERS_PER_PAGE = 5
+
     def index
         if !check_user_admin
-            @users = User.all
+            @page = params.fetch(:page, 0).to_i
+            @users = User.offset(@page * USERS_PER_PAGE).limit(USERS_PER_PAGE)
             render json: @users , status: :ok
         else
             render json:{

@@ -3,9 +3,11 @@ class PostsController < ApplicationController
     before_action :post_auth, only: [:destroy]
     before_action :current_post, only: [:update, :destroy,:show]
 
+    POST_PER_PAGE = 5
 
     def index
-        @posts = Post.all
+        @page = params.fetch(:page,0).to_i
+        @posts = Post.offset(@page * POST_PER_PAGE).limit(POST_PER_PAGE)
         render json: @posts, status: 200, include: :comments
     end
 
@@ -44,7 +46,7 @@ class PostsController < ApplicationController
     end
 
     def destroy
-            if @post.destroy
+        if @post.destroy
             render json:{
                 status: 200,
                 msg: "Successffuly Deleted Post"

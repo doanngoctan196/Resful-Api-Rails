@@ -4,10 +4,12 @@ class CommentsController < ApplicationController
     before_action :authenticate_request,  only: [:index,:update, :create, :destroy]
     before_action :comment_auth, only: [:destroy]
     
-  
+    COMMENT_PER_PAGE = 5
+
     def index
-        @comment = @post.comments
-        render json: @comment , status: 200
+        @page = params.fetch(:page,0).to_i
+        @comments = @post.comments.offset(@page * COMMENT_PER_PAGE).limit(COMMENT_PER_PAGE)
+        render json: @comments , status: 200
     end
   
     # def show
@@ -26,17 +28,16 @@ class CommentsController < ApplicationController
     def create
       @comment = @post.comments.create(comment_params)
       @comment.user_id = current_user.id
-      if @comment.save
-        render json:{
-          data: @comment,
-        },status: :created
-      else
-        render json:{
-          status: 400,
-          msg: @comment.errors
-        },status: :unprocessable_entity
-
-      end
+        if @comment.save
+          render json:{
+            data: @comment,
+          },status: :created
+          else
+          render json:{
+            status: 400,
+            msg: @comment.errors
+          },status: :unprocessable_entity
+        end
     end
   
     def update
