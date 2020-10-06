@@ -15,6 +15,7 @@ class CommentsController < ApplicationController
       @comment = @post.comments.create(comment_params)
       @comment.user_id = current_user.id
         if @comment.save
+          @post.update(:updated_at => @comment.created_at)
           render json:{
             data: @comment,
           },status: :created

@@ -23,6 +23,7 @@ class UsersController < ApplicationController
     def create
         @user = User.create(user_params)
         if @user.save
+            ExampleMailer.sample_email(@user).deliver
             render json:{
             data: @user
           },status: :created

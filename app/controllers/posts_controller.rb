@@ -6,7 +6,7 @@ class PostsController < ApplicationController
     POST_PER_PAGE = 5
 
     def index
-        @posts = Post.offset(pagination * POST_PER_PAGE).limit(POST_PER_PAGE)
+        @posts = Post.offset(pagination * POST_PER_PAGE).limit(POST_PER_PAGE).order("updated_at DESC")
         render json: @posts, status: 200
     end
 

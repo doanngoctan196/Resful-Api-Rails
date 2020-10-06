@@ -21,7 +21,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'simple_command'
 gem 'jwt'
 gem "paranoia", "~> 2.2"
-
+gem 'dotenv-rails'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
