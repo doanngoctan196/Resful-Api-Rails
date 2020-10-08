@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :posts do 
     resources :comments
   end
+  resources :comments do
+    resources :comments
+  end
   post 'authenticate', to: 'authentication#authenticate'
   get 'users/current',to: 'users#show'
   get "search", to: "search#index"

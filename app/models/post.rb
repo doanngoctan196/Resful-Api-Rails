@@ -5,7 +5,7 @@ class Post < ApplicationRecord
     # include Elasticsearch::Model::Callbacks
     acts_as_paranoid
     belongs_to :user
-    has_many :comments,  dependent: :destroy
+    has_many :comments, as: :commentable,  dependent: :destroy
 
     # def self.search(query)
     #     __elasticsearch__.search(
